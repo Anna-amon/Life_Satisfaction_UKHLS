@@ -77,3 +77,74 @@ The calendar Year 2021 dataset includes individuals from waves 11, 12 and 13. Th
 The majority of variables for the 2018 dataset have been answered at each wave. However, those that were not are filled as NaNs. The final dataset for 2018 has a considerable number of variables due to combining the datasets using left and outer joins. This is necessary to create final calendar year variables using combinations of variables across each wave. New calendar year variables have been created to combine the results from each wave, the majority of which used the mean across all three waves for each pidp. One example of this is the life satisfaction variable, which for most people, was answered at each wave. For those that are categorical, and have more than 2 categories, the new variable is created using the mode instead. The age variable has been re-coded into subsets of individuals aged 16-35, 36-59 and 60+. Finally, after combining waves and datasets, each calendar year dataset resulted in three, smaller datasets, one for each age group. Therefore we have six datasets in total. The number of individuals in each dataset can be seen
 in Table 1.
 
+### Table 1: The number of individuals in the final 2018 and 2021 Calendar Year datasets, for each age group
+
+These are the final dataset numbers used for the models.
+
+| Calendar Year | Age Group | Instances |
+|---------------|-----------|-----------|
+| **2018**      | 16-35     | 10,376    |
+|               | 36-59     | 15,223    |
+|               | 60+       | 11,821    |
+| **2021**      | 16-35     | 5,949     |
+|               | 36-59     | 10,561    |
+|               | 60+       | 8,284      |
+
+The life satsifaction outcome measure used is a single scale from 1-7, 7 indicating a very high level of life satisfaction, and 1 indicating very low life satisfaction. The survey question is framed as: ‘How satisfied are you with your life overall?
+
+Completely Dissatisfied (1), 
+Mostly Dissatisfied (2), 
+Somewhat Dissatisfied (3), 
+Neither Satisfied or Dissatisfied (4), 
+Somewhat Satisfied (5), 
+Mostly Satisfied (6), 
+Completely Satisfied (7). 
+
+Across each dataset, the life satisfaction variable is left skewed for all age groups, demonstrating how for the majority of people, their life satisfaction is rated above 5 on this scale. Before considering the predictor variables, the mean score for each age group (for each year, as opposed to the larger groupings) has been plotted for both the 2018 and 2021 datasets and can be seen in Figures 3 and 4. For both years, we can see those aged 60+ report higher life satisfaction, and the mean becomes much more volatile in older years, as people approach the end of life. If we compare the two years, we can see in the earlier year, 2018, the youngest age group of those aged 16-35, are reporting higher life satisfaction overall, compared to those ages 36-59. This reflects the U-shaped well-being curve. However, we can see a difference in the 2021 dataset. The youngest age group are no longer demonstrating higher well-being than the middle age group. Instead, from years 20-29, this appears lower, on average, than those aged 35-60 overall, with some similarities for those aged 40-45. This indicates a trend change from the U-shaped curve, and now there is a leveling out with age between 16-60 years, and then a steep linear incline with age from aged 60+. This potentially points to younger people, particularly those aged 20-29, being particularly impacted by COVID-19.
+
+### Figure 3: Life Satsifaction by age, from the 2018 dataset
+![image](https://github.com/Anna-amon/Life_Satisfaction_UKHLS/blob/main/2018%20DATASET.jpeg)
+
+### Figure 4: Life Satsifaction by age, from the 2021 dataset
+![image](https://github.com/Anna-amon/Life_Satisfaction_UKHLS/blob/main/2021%20DATASET.jpeg)
+
+The predictor variables are based on prior research defining determinants of life satisfaction, most of which have been identified in the literature above. These can be broadly categorised into demographic variables (relationship status), socio-demographic variables (tenure, individual income, household income, how well managing financially), health behaviours ( smoker, how many days vigorous activity), physical health (health limits work, health limits moderate activities, subjective general health), social media usage (frequency of posting on social media) and social connection (how often feels isolated, how often feels lack of companionship, how often feels can overcome difficulties, how often feels lonely). The inclusion of GHQ into the model is based on previous research mentioned above, indicating associations between mental health and life satisfaction.
+
+## Descriptive Statistical Analysis
+
+Descriptive analysis was first undertaken using Python 3.11. Variables initially considered yet having over 40 percent of missing values were removed from the analysis, which left us with the variables listed above. Any negative values were also removed. For the use of the machine learning algorithms, each categorical variable is converted into binary numeric variables, 0 and 1 one for each category. For multiple categorical variables, such as Tenure, the variables have been re-coded where necessary, and then one hot encoded. For
+Tenure, the re-code values created ‘own property’ for those who owned either with a mortgage or outright. Those who rented from a local authority or housing association are coded as ‘council flat rent’ and those who rented from an employer or private unfurnished are re-coded as ‘private renting’. Continuous variables are kept as they are.
+
+The mean life satisfaction scores have been calculated, alongside the percentage of individuals within each category for each variable, for both the 2018 and 2021 datasets. These are listed in tables 19 and 20, in the appendix. From the descriptive statistics alone, it appears that those with higher mental health scores, and lower scores for variables relating to social connections, are also showing lower levels of life satisfaction. Similarly, those who have limited health and engage in less health behaviours also show lower levels of life satisfaction. However, in terms of age, from the descriptive statistics there doesn’t appear to be huge differences across age groups.
+
+One point to note is that the median and mean has changed for the life satisfaction variable after removal of NaNs for the predictor variables in the 2021 dataset used in the final model, for the youngest age group. The differences can be seen from Table 2. This may indicate that for this younger age group, those with lower life satisfaction may not have responded to certain questions during COVID-19, and were therefore more likely to be removed from the dataset.
+
+### Table 2: The mean and median life satisfaction for the 2018 and 2021 Calendar Year datasets, for each age group, both before and after removal of NaNs
+
+| Calendar Year | Age Group |          | Median before removal | Median after removal | 
+|---------------|-----------|----------|-----------------------|----------------------|
+| **2018**      | 16-35     | **Median** | 6                     | 6                    |                                  
+|               |           | **Mean**   | 5.2                   | 5.3                  |                    
+|               | 36-59     | **Median** | 6                     | 6                    |                    
+|               |           | **Mean**   | 5.1                   | 5.2                  |                     
+|               | 60+       | **Median** | 6                     | 6                    |                     
+|               |           | **Mean**   | 5.5                   | 5.5                  |                     
+| **2021**      | 16-35     | **Median** | 5                     | 6                    |                     
+|               |           | **Mean**   | 5.0                   | 5.1                  |                    
+|               | 36-59     | **Median** | 5                     | 5                    |                   
+|               |           | **Mean**   | 5.0                   | 5.0                  |                   
+|               | 60+       | **Median** | 6                     | 6                    |                     
+|               |           | **Mean**   | 5.3                   | 5.3                  |             
+
+## Statistical Analysis - Methods
+
+To assess whether the decline in well-being for each age group is statistically significant, the life satisfaction variable has first been checked for normality. Having confirmed the variable is right skewed, the MannWhitney U-test, a non-parametric statistical test used for comparing two different samples, to assess whether there is a difference in the central tendency, is used. It is important to note here that the data used for these tests are the full calendar year datasets, before removal of individuals with NaN values for certain predictor variables. This is beneficial as it provides a more accurate representation of those surveyed.
+
+To analyse the main predictors of life satisfaction, this research uses machine learning algorithms ‘white box models’, as they are easier to interpret than other algorithms such as neural networks. These three models are; Regression Trees (RT), Random Forests (RF) and eXtreme Gradient Boosting (XGBoost). There are a handful of reasons for the use of machine learning over traditional statistics. Firstly, Research complete by the UKCEP confirms that machine learning algorithms such as RF and XGBoost provided more predictive accuracy than traditional statistical methods (Oparina et al., 2022). This is measured by the r-squared (R²) value. Furthermore, these algorithms are highly suited to the UKHLS dataset due to their ability to deal with non-parametric, categorical, and continuous data. They are capable of analysing patterns among variables in order to predict outcomes, which provides a benefit over traditional statistics where you have to manually specify interactions between features (Géron 2023). Machine learning can therefore indicate new variables that may be overlooked in traditional statistics, and the algorithms can explore the interactions between them (Géron 2023).
+
+Machine learning algorithms also work well with meta-data and in particular, meta-data that includes missing values (Géron 2023). After completing this cross-sectional study, the next step for this data set will be to use the UKHLS data from 2011, to complete a longitudinal study, tracking changes over time for individuals within different age brackets. When dealing with longitudinal data, missing data becomes a frequent occurrence due to survey changes and completion rates over time, therefore these algorithms will be better suited than traditional statistical methods, particularly where the dataset is large. RT are the baseline models, as these are simpler than RF and XGBoost, however, they are more prone to over-fitting to the training data. RF and XGBoost are based on RT and help to ensure the algorithm is not over-fitting to the training data (Géron 2023). Overall, there are 30 models in total: three for each age group, per each calendar year, for the extended set of variables. The best performing model on the extended set of variables is then applied to each limited variable dataset, of which there are 12 in total, 6 objective-only datasets, and 6 subjective-only datasets. Each of the models have been trained on 80 percent of the training data, and then tested on the remaining 20 percent of unseen data. The dataset has been stratified on the target variable to ensure an equal distribution of individuals measuring their life satisfaction from low to high in both the train and test set. A Grid Search has been completed to automate the process of searching across the parameter grid, in order to find the best parameters for the model. 5-fold cross-validation is then used to assess the performance of each parameter combination.
+
+The scoring metrics used for each model are the Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and R-Squared (R²). The former assesses the predictive accuracy of each model and enables us to understand which model performs the best, whilst the latter will help us to understand model fit (Géron 2023). R² represents the proportion of the variance for a dependent variable that’s explained by the independent variables. A higher R² value indicates a model that more accurately represents the data. In order to further understand model accuracy, the different predictive accuracy for thresholds will be explored. The threshold will be based on the life satisfaction variable scale of 1 – 7. An accuracy score for each threshold will be given as a percentage of correct predictions. We will use a threshold of 1 as an acceptable margin of error, as the aim of the research is to not to base policy decisions on predictions for each individual, but to understand the main predictors for each age group generally. For this reason, we can trade predictive accuracy for a more interpretative model that is able to broadly categorise people within 1 point on the scale.
+
+The highest absolute SHapley Additive exPlanations (SHAP) values is the model interpretation method used for this study. SHAP values tell us how much each feature contributes to moving the model output, from a base level to the actual model output, and then averaging these values across the dataset, to arrive at the average contribution of each feature to the model output (Molnar, 2024). This is particularly useful for this research as it helps us to understand how significant the subjective and objective variables are for the
+predictions, in the two limited datasets, and therefore allows us to understand the areas that should be best prioritised by social policy. To visualize and provide granular insights into the SHAP values, a bee swarm plot is used to summarise the distribution of the values for each feature. This will provide an overview of how each feature impacts the prediction, in terms of the direction of the relationship between the predictor variables and the outcome variable in the model.
