@@ -148,3 +148,141 @@ The scoring metrics used for each model are the Mean Squared Error (MSE), Root M
 
 The highest absolute SHapley Additive exPlanations (SHAP) values is the model interpretation method used for this study. SHAP values tell us how much each feature contributes to moving the model output, from a base level to the actual model output, and then averaging these values across the dataset, to arrive at the average contribution of each feature to the model output (Molnar, 2024). This is particularly useful for this research as it helps us to understand how significant the subjective and objective variables are for the
 predictions, in the two limited datasets, and therefore allows us to understand the areas that should be best prioritised by social policy. To visualize and provide granular insights into the SHAP values, a bee swarm plot is used to summarise the distribution of the values for each feature. This will provide an overview of how each feature impacts the prediction, in terms of the direction of the relationship between the predictor variables and the outcome variable in the model.
+
+# Analysis - Results
+
+## Traditional statistics - Mann-Whitney U test
+
+The results of the Mann Whitney U-test confirm the p-values are highly statistically significant for each age group. In order of statistical significance, those aged 60+ show the highest statistical significance, with a p-value of p = 3.99084 × 10−20. The result for those aged 16-35 shows less significance than those aged 60+, with a p-value of p = 4.515883921555554 × 10−12, yet a higher statistical significance than for those aged 36-59, with a p-value of p = 3.723723744523904 × 10−7. We can therefore confirm that life satisfaction has significantly declined for all age groups, from 2018 to 2021, but most significantly for those aged 60+, followed by those aged 16-35, and the least significance shows for those aged 36-59.
+
+## Machine learning - extended set of variables
+
+To start, we will consider results from the 2018 Calendar Year dataset, and then the 2021 Calendar Year dataset, for the extended set of variables only. Table 2 provides the optimal hyper-parameters and Table 3 provides the RMSE, MSE and R² results for the RT, RF and XGBoost for the three 2018 datasets covering each age group. The XGBoost performed best for each age group, however, for both the RF and XGBoost, the results were improved for the two older age groups. This indicates the models found it easier to make predictions for the two older age groups. This may be due to less variability in the life satisfaction variable for the older age group, although, it may also be due to the two datasets containing more instances than the youngest age group, enabling the model to learn on more patterns in the training data.
+
+#### Table 3: 2018 Calendar Year Hyper-Parameters for the Algorithms in the Extended Set of Variables
+
+| Algorithm       | Age Range | MaxDepth | Min Samples Split | N Estimators | Learning Rate |
+|-----------------|-----------|----------|-------------------|--------------|---------------|
+| Regression Tree | 16-35     | 5        | -                 | -            | -             |
+|                 | 36-59     | 6        | -                 | -            | -             |
+|                 | 60+       | 5        | -                 | -            | -             |
+| Random Forest   | 16-35     | 7        | 10                | 300          | -             |
+|                 | 36-59     | 8        | 10                | 200          | -             |
+|                 | 60+       | 7        | 10                | 300          | -             |
+| Gradient Booster| 16-35     | 0.1      | -                 | 100          | 3             |
+|                 | 36-59     | 0.1      | -                 | 100          | 3             |
+|                 | 60+       | 0.1      | -                 | 100          | 3             |
+
+#### Table 4: 2018 Calendar Year: MRSE, MSE, and R² of Predicting Life Satisfaction. The table shows the MRSE, MSE, and R² of predicting life satisfaction with 80 percent of the sample in each training set and the error calculated on the remaining 20 percent of each test set. The percentage of accurate predictions are those that have been correctly predicted within a threshold of 1.
+
+| Algorithm       | Age Range | MSE  | RMSE | R²   | Accurate Predictions % |
+|-----------------|-----------|------|------|------|------------------------|
+| Regression Tree | 16-35     | 0.94 | 0.97 | 0.40 | 71%                    |
+|                 | 36-59     | 0.87 | 0.93 | 0.44 | 75%                    |
+|                 | 60+       | 0.91 | 0.95 | 0.35 | 77%                    |
+| Random Forest   | 16-35     | 0.87 | 0.93 | 0.45 | 73%                    |
+|                 | 36-59     | 0.81 | 0.90 | 0.48 | 76%                    |
+|                 | 60+       | 0.85 | 0.92 | 0.39 | 78%                    |
+| Gradient Booster| 16-35     | 0.84 | 0.92 | 0.46 | 75%                    |
+|                 | 36-59     | 0.79 | 0.89 | 0.49 | 77%                    |
+|                 | 60+       | 0.82 | 0.91 | 0.41 | 78%                    |
+
+Next, we can consider the results of the 2021 dataset. Table 4 provides the optimal hyper-parameters and Table 5 provides the RMSE, MSE and R² results for the RT, RF and XGBoost for the three 2021 datasets covering each age group. The XGBoost performed the best for each age group in comparison to the RT and RF, and for each age group, the XGBoost again performed best for the older age group across all metrics.
+
+#### Table 5: 2021 Calendar Year Hyper-Parameters for the Algorithms in the Extended Set of Variables
+
+| Algorithm       | Age Range | MaxDepth | Min Samples Split | N Estimators | Learning Rate |
+|-----------------|-----------|----------|-------------------|--------------|---------------|
+| Regression Tree | 16-35     | 5        | -                 | -            | -             |
+|                 | 36-59     | 6        | -                 | -            | -             |
+|                 | 60+       | 5        | -                 | -            | -             |
+| Random Forest   | 16-35     | 7        | 10                | 300          | -             |
+|                 | 36-59     | 7        | 10                | 300          | -             |
+|                 | 60+       | 7        | 10                | 200          | -             |
+| Gradient Booster| 16-35     | 3        | -                 | 50           | 0.1           |
+|                 | 36-59     | 3        | -                 | 50           | 0.1           |
+|                 | 60+       | 4        | -                 | 50           | 0.1           |
+
+#### Table 6: 2021 Calendar Year Extended Set of Variables: MRSE, MSE and R² of Predicting Life Satisfaction. The table shows the MRSE, MSE, and R² of predicting life satisfaction with 80 percent of the sample in each training set and the error calculated on the remaining 20 percent of each test set. The percentage of accurate predictions are those that have been correctly predicted within a threshold of 1.
+
+| Algorithm       | Age Range | MSE  | RMSE | R²   | Accurate Predictions % |
+|-----------------|-----------|------|------|------|------------------------|
+| Regression Tree | 16-35     | 1.17 | 1.08 | 0.39 | 69%                    |
+|                 | 36-59     | 1.20 | 1.09 | 0.37 | 70%                    |
+|                 | 60+       | 1.15 | 1.07 | 0.35 | 74%                    |
+| Random Forest   | 16-35     | 1.05 | 1.02 | 0.45 | 71%                    |
+|                 | 36-59     | 1.09 | 1.04 | 0.43 | 72%                    |
+|                 | 60+       | 1.09 | 1.04 | 0.38 | 74%                    |
+| Gradient Booster| 16-35     | 1.05 | 1.02 | 0.45 | 71%                    |
+|                 | 36-59     | 1.07 | 1.04 | 0.44 | 72%                    |
+|                 | 60+       | 1.07 | 1.03 | 0.39 | 75%                    |
+
+
+## Machine learning - limited set of variables (objective)
+
+This section of the analysis considers the results from the machine learning models, for the limited set of objective variables, displayed in Tables 8 and 9. Given the best performing model for the extended set of variables is the XGBoost, we have only used this model for the limited set of variables. The R² is highest for the middle age group, indicating these variables have the best model fit for this group, which may be due to the dataset containing more instances. If we compare the results of the limited datasets with the extended datasets, we can see the percentage of accurate predictions, within a threshold of one, are much lower for the limited datasets, and the RMSE and MSE is much higher. The biggest differences can be seen by the R² results, which demonstrate how objective variables alone explain a smaller proportion of the variance in the life satisfaction variable, in comparison to the extended model with both subjective and objective variables.
+
+#### Table 8: 2018 Calendar Year Limited Set of Objective Variables: RMSE, MSE, and R² of Predicting Life Satisfaction. The table shows the RMSE, MSE, and R² of predicting life satisfaction with 80 percent of the sample in each training set and the error calculated on the remaining 20 percent of each test set. The percentage of accurate predictions are those that have been correctly predicted within a threshold of 1.
+
+| Algorithm       | Age Range | MSE  | RMSE | R²   | Accurate Predictions % |
+|-----------------|-----------|------|------|------|------------------------|
+| Gradient Booster| 16-35     | 1.33 | 1.15 | 0.16 | 63%                    |
+|                 | 36-59     | 1.16 | 1.08 | 0.25 | 67%                    |
+|                 | 60+       | 1.13 | 1.06 | 0.19 | 68%                    |
+
+#### Table 9: 2021 Calendar Year Limited Set of Objective Variables: RMSE, MSE, and R² of Predicting Life Satisfaction. The table shows the RMSE, MSE, and R² of predicting life satisfaction with 80 percent of the sample in each training set and the error calculated on the remaining 20 percent of each test set. The percentage of accurate predictions are those that have been correctly predicted within a threshold of 1.
+
+| Algorithm       | Age Range | MSE  | RMSE | R²   | Accurate Predictions % |
+|-----------------|-----------|------|------|------|------------------------|
+| Gradient Booster| 16-35     | 1.66 | 1.29 | 0.13 | 62%                    |
+|                 | 36-59     | 1.58 | 1.26 | 0.18 | 62%                    |
+|                 | 60+       | 1.47 | 1.21 | 0.16 | 64%                    |
+
+
+## Machine learning - limited set of variables (subjective)
+
+Next, the XGBoost has been applied to the limited set of subjective variables. This part of the analysis is to assess how accurate the predictions are on each dataset once the objective variables have been removed, to help clarify how much the model relies on objective variables in making its predictions, and how accurate predictions may be if we are to remove these entirely. As can be seen from the performance metrics in tables 10 and 11, the datasets containing subjective variables only are producing similar results to the model performance on extended datasets, containing both objective and subjective variables. This is the case of performance across all metrics, indicating the model relies almost predominantly on the subjective indicators when predicting life satsifaction.
+
+#### Table 10: 2018 Calendar Year Limited Set of Subjective Variables: RMSE, MSE, and R² of Predicting Life Satisfaction. The table shows the RMSE, MSE, and R² of predicting life satisfaction with 80 percent of the sample in each training set and the error calculated on the remaining 20 percent of each test set. The percentage of accurate predictions are those that have been correctly predicted within a threshold of 1.
+
+| Algorithm       | Age Range | MSE  | RMSE | R²   | Accurate Predictions % |
+|-----------------|-----------|------|------|------|------------------------|
+| Gradient Booster| 16-35     | 0.85 | 0.92 | 0.46 | 74%                    |
+|                 | 36-59     | 0.81 | 0.90 | 0.48 | 77%                    |
+|                 | 60+       | 0.83 | 0.91 | 0.40 | 78%                    |
+
+
+#### Table 11: 2021 Calendar Year Limited Set of Subjective Variables: RMSE, MSE, and R² of Predicting Life Satisfaction. The table shows the RMSE, MSE, and R² of predicting life satisfaction with 80 percent of the sample in each training set and the error calculated on the remaining 20 percent of each test set. The percentage of accurate predictions are those that have been correctly predicted within a threshold of 1.
+
+| Algorithm       | Age Range | MSE  | RMSE | R²  | Accurate Predictions % |
+|-----------------|-----------|------|------|-----|------------------------|
+| Gradient Booster| 16-35     | 1.05 | 1.02 | 0.45| 72%                    |
+|                 | 36-59     | 1.08 | 1.04 | 0.44| 72%                    |
+|                 | 60+       | 1.08 | 1.04 | 0.39| 75%                    |
+
+## Mean absolute SHAP values - extended set of variables
+
+Having considered the performance metrics for each dataset, we can now explore the determinants of happiness for each age group, for each year, using the mean absolute SHAP values from the XGBoost models. Table 12 displays the mean absolute SHAP values for the 2018 calendar dataset, for each age group. The higher the mean absolute SHAP value, the higher the likelihood of this variable contributing to the life satisfaction outcome variable. If we firstly consider the differences across age groups, we can see that each group shares the same four most important variables as predictors, namely mental health (GHQ) scores, how well they are managing financially, feelings of isolation and lacking in companionship. All of the top variables for each age group are subjective, and the objective variables are placed at the lower end of the scale in terms of importance.
+
+#### Table 15: Ordered Mean Absolute SHAP Values for Features by Age Group in 2018 Dataset (Extended Set of Variables)
+
+| Feature                           | Age 16-35 SHAP  | Feature                           | Age 36-59 SHAP  | Feature                         | Age 60+ SHAP    |
+|-----------------------------------|-----------------|-----------------------------------|-----------------|---------------------------------|------------------|
+| Subjective wellbeing GHQ          | 0.288           | Subjective wellbeing GHQ          | 0.304           | Subjective wellbeing GHQ        | 0.24             |
+| How well managing financially     | 0.153           | How well managing financially     | 0.176           | How well managing financially   | 0.14             |
+| HO feels lack of companionship    | 0.121           | HO feels can overcome difficulties| 0.111           | HO feels can overcome difficulties| 0.13            |
+| How often feels isolated          | 0.095           | HO feels lack of companionship    | 0.092           | HO feels isolated               | 0.10             |
+| HO feels can overcome difficulties| 0.080           | HO feels lonely                   | 0.086           | HO feels lack of companionship  | 0.07             |
+| HO feels lonely                   | 0.077           | HO feels isolated                 | 0.075           | Household income level scale    | 0.06             |
+| Health limits work                | 0.042           | Health limits work                | 0.055           | HO feels lonely                 | 0.04             |
+| Relationship status               | 0.040           | How many days vigorous activity   | 0.017           | Health limits work              | 0.03             |
+| Household income level scale      | 0.038           | Household income level scale      | 0.016           | Individual income level scale   | 0.02             |
+| Individual income level scale     | 0.037           | Individual income level scale     | 0.014           | Relationship status             | 0.01             |
+| How many days vigorous activity   | 0.020           | Smoker                            | 0.013           | How many days vigorous activity | 0.01             |
+| Own property                      | 0.017           | Relationship status               | 0.009           | Other                           | 0.00             |
+| Smoker                            | 0.011           | LS physical or mental disability  | 0.007           | Health limits moderate activities| 0.00            |
+| Private rent                      | 0.005           | Health limits moderate activities | 0.006           | Private rent                    | 0.00             |
+| Council flat rent                 | 0.004           | Own property                      | 0.003           | Own property                    | 0.00             |
+| LL physical or mental disability  | 0.003           | Private rent                      | 0.001           | LS physical or mental disability| 0.00             |
+| Other                             | 0.000           | Other                             | 0.000           | Smoker                          | 0.00             |
+| Health limits moderate activities | 0.000           | Council flat rent                 | 0.000           | Council flat rent               | 0.00             |
