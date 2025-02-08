@@ -77,7 +77,7 @@ The calendar Year 2021 dataset includes individuals from waves 11, 12 and 13. Th
 The majority of variables for the 2018 dataset have been answered at each wave. However, those that were not are filled as NaNs. The final dataset for 2018 has a considerable number of variables due to combining the datasets using left and outer joins. This is necessary to create final calendar year variables using combinations of variables across each wave. New calendar year variables have been created to combine the results from each wave, the majority of which used the mean across all three waves for each pidp. One example of this is the life satisfaction variable, which for most people, was answered at each wave. For those that are categorical, and have more than 2 categories, the new variable is created using the mode instead. The age variable has been re-coded into subsets of individuals aged 16-35, 36-59 and 60+. Finally, after combining waves and datasets, each calendar year dataset resulted in three, smaller datasets, one for each age group. Therefore we have six datasets in total. The number of individuals in each dataset can be seen
 in Table 1.
 
-### Table 1: The number of individuals in the final 2018 and 2021 Calendar Year datasets, for each age group
+#### Table 1: The number of individuals in the final 2018 and 2021 Calendar Year datasets, for each age group
 
 These are the final dataset numbers used for the models.
 
@@ -119,7 +119,7 @@ The mean life satisfaction scores have been calculated, alongside the percentage
 
 One point to note is that the median and mean has changed for the life satisfaction variable after removal of NaNs for the predictor variables in the 2021 dataset used in the final model, for the youngest age group. The differences can be seen from Table 2. This may indicate that for this younger age group, those with lower life satisfaction may not have responded to certain questions during COVID-19, and were therefore more likely to be removed from the dataset.
 
-### Table 2: The mean and median life satisfaction for the 2018 and 2021 Calendar Year datasets, for each age group, both before and after removal of NaNs
+#### Table 2: The mean and median life satisfaction for the 2018 and 2021 Calendar Year datasets, for each age group, both before and after removal of NaNs
 
 | Calendar Year | Age Group |          | Median before removal | Median after removal | 
 |---------------|-----------|----------|-----------------------|----------------------|
@@ -264,7 +264,7 @@ Next, the XGBoost has been applied to the limited set of subjective variables. T
 
 Having considered the performance metrics for each dataset, we can now explore the determinants of happiness for each age group, for each year, using the mean absolute SHAP values from the XGBoost models. Table 12 displays the mean absolute SHAP values for the 2018 calendar dataset, for each age group. The higher the mean absolute SHAP value, the higher the likelihood of this variable contributing to the life satisfaction outcome variable. If we firstly consider the differences across age groups, we can see that each group shares the same four most important variables as predictors, namely mental health (GHQ) scores, how well they are managing financially, feelings of isolation and lacking in companionship. All of the top variables for each age group are subjective, and the objective variables are placed at the lower end of the scale in terms of importance.
 
-#### Table 15: Ordered Mean Absolute SHAP Values for Features by Age Group in 2018 Dataset (Extended Set of Variables)
+#### Table 12: Ordered Mean Absolute SHAP Values for Features by Age Group in 2018 Dataset (Extended Set of Variables)
 
 | Feature                           | Age 16-35 SHAP  | Feature                           | Age 36-59 SHAP  | Feature                         | Age 60+ SHAP    |
 |-----------------------------------|-----------------|-----------------------------------|-----------------|---------------------------------|------------------|
@@ -286,3 +286,68 @@ Having considered the performance metrics for each dataset, we can now explore t
 | LL physical or mental disability  | 0.003           | Private rent                      | 0.001           | LS physical or mental disability| 0.00             |
 | Other                             | 0.000           | Other                             | 0.000           | Smoker                          | 0.00             |
 | Health limits moderate activities | 0.000           | Council flat rent                 | 0.000           | Council flat rent               | 0.00             |
+
+Table 13 shows the mean absolute SHAP value results for the 2021 dataset. The results are similar to the 2018 dataset, although some differences can be seen due to the 2021 dataset containing more variables. If we consider the other variables, which carry less weight overall, for the 16-35 and 36-59 age groups, relationship status and property ownership contribute more to the predictions for the younger age group, whilst local authority renting contributes more to the predictions for the 60+ age group. However, these difference are not large. Interestingly, frequency of posting on social media contribution is the same across age groups.
+
+#### Table 13: Ordered Mean Absolute SHAP Values for Features by Age Group in 2021 Dataset (Extended Set of Variables)
+
+| Feature                           | Age 16-35 SHAP  | Feature                           | Age 36-59 SHAP  | Feature                           | Age 60+ SHAP    |
+|-----------------------------------|-----------------|-----------------------------------|-----------------|-----------------------------------|------------------|
+| Subjective wellbeing GHQ          | 0.328           | Subjective wellbeing GHQ          | 0.325           | Subjective wellbeing GHQ          | 0.298           |
+| Subjective general health         | 0.179           | Subjective general health         | 0.172           | HO feels can overcome difficulties| 0.165           |
+| How well managing financially     | 0.173           | How well managing financially     | 0.160           | How well managing financially     | 0.149           |
+| HO feels lonely                   | 0.167           | HO feels can overcome difficulties| 0.135           | Subjective general health         | 0.138           |
+| HO feels can overcome difficulties| 0.115           | HO feels isolated                 | 0.110           | HO feels lonely                   | 0.087           |
+| HO feels lack of companionship    | 0.081           | HO feels lack of companionship    | 0.093           | HO feels isolated                 | 0.074           |
+| Health limits work                | 0.060           | HO feels lonely                   | 0.091           | HO feels lack of companionship    | 0.068           |
+| Frequency of posting on social    | 0.037           | Health limits work                | 0.035           | Household income level scale      | 0.043           |
+| HO feels isolated                 | 0.036           | Relationship status               | 0.016           | Health limits work                | 0.023           |
+| Relationship status               | 0.031           | Health limits moderate activities | 0.010           | Frequency of posting on social    | 0.013           |
+| Own property                      | 0.021           | Own property                      | 0.010           | Individual income level scale     | 0.012           |
+| Smoker                            | 0.014           | Frequency of posting on social    | 0.007           | Local authority property          | 0.007           |
+| Health limits moderate activities | 0.012           | Household income level scale      | 0.007           | How many days vigorous activity   | 0.006           |
+| Household income level scale      | 0.009           | Smoker                            | 0.006           | Relationship status               | 0.004           |
+| Local authority property          | 0.008           | Individual income level scale     | 0.004           | Smoker                            | 0.003           |
+| How many days vigorous activity   | 0.004           | Private renting                   | 0.001           | LS physical or mental disability  | 0.002           |
+| Individual income level scale     | 0.002           | How many days vigorous activity   | 0.000           | Health limits moderate activities | 0.001           |
+| Private renting                   | 0.000           | Local authority property          | 0.000           | Own property                      | 0.001           |
+| LS physical or mental disability  | 0.000           | LS physical or mental disability  | 0.000           | Private renting                   | 0.001           |
+
+## Mean absolute SHAP values - limited set of variables
+
+This final section of the analysis considers the mean absolute SHAP values for the XGBoost models applied to the objective variables limited dataset. The subjective variables limited dataset is not being considered in-depth as, given the extended dataset relied more heavily on subjective variables, the SHAP is likely to be similar for the limited dataset containing subjective variables only. Here, we are interested in whether the order of objective variables changes when the models make predictions on datasets containing only objective variables.
+
+The top objective variables are largely similar across age groups, and remain the same both pre and post COVID-19. Consistently, the most important variable for predictions across age groups is health limits work. Interestingly, with the extended model, having a long standing physical or mental health condition was not so much of an important predictor in the model as it is for the limited objective only model. This likely points to the mediating and indirect affects being captured between variables in the extended model, making other objective variables more important than they are in the objective only model, due to the interaction effect with other, subjective predictors.
+
+#### Table 14: Ordered Mean Absolute SHAP Values for Features by Age Group in 2018 Dataset (Limited Set of Variables)
+
+| Feature                           | Age 16-35 SHAP  | Feature                           | Age 36-59 SHAP  | Feature                           | Age 60+ SHAP    |
+|-----------------------------------|-----------------|-----------------------------------|-----------------|-----------------------------------|------------------|
+| Health limits work                | 0.254           | Health limits work                | 0.310           | Health limits work                | 0.278           |
+| LS physical or mental disability  | 0.141           | LS physical or mental disability  | 0.116           | Household income level scale      | 0.098           |
+| Relationship status               | 0.086           | Relationship status               | 0.084           | Health limits moderate activities | 0.079           |
+| Household income level scale      | 0.086           | Household income level scale      | 0.065           | LS physical or mental disability  | 0.065           |
+| Smoker                            | 0.078           | Own property                      | 0.047           | Own property                      | 0.038           |
+| How many days vigorous activity   | 0.055           | Health limits moderate activities | 0.037           | Individual income level scale     | 0.032           |
+| Own property                      | 0.031           | Smoker                            | 0.029           | Smoker                            | 0.028           |
+| Council flat rent                 | 0.013           | How many days vigorous activity   | 0.017           | Relationship status               | 0.027           |
+| Individual income level scale     | 0.011           | Individual income level scale     | 0.014           | How many days vigorous activity   | 0.012           |
+| Health limits moderate activities | 0.003           | Council flat rent                 | 0.012           | Council flat rent                 | 0.005           |
+| Private rent                      | 0.003           | Private rent                      | 0.001           | Private rent                      | 0.004           |
+
+#### Table 15: Ordered Mean Absolute SHAP Values for Features by Age Group in 2021 Dataset (Limited Set of Variables)
+
+| Feature                           | Age 16-35 SHAP  | Feature                           | Age 36-59 SHAP  | Feature                           | Age 60+ SHAP    |
+|-----------------------------------|-----------------|-----------------------------------|-----------------|-----------------------------------|------------------|
+| Health limits work                | 0.222           | Health limits work                | 0.254           | Health limits work                | 0.277           |
+| LS physical or mental disability  | 0.128           | LS physical or mental disability  | 0.135           | Household income level scale      | 0.097           |
+| Relationship status               | 0.117           | Relationship status               | 0.109           | Health limits moderate activities | 0.083           |
+| Own property                      | 0.068           | Health limits moderate activities | 0.074           | LS physical or mental disability  | 0.081           |
+| Household income level scale      | 0.062           | Own property                      | 0.064           | Relationship status               | 0.071           |
+| How many days vigorous activity   | 0.056           | Household income level scale      | 0.062           | Individual income level scale     | 0.042           |
+| Smoker                            | 0.054           | How many days vigorous activity   | 0.046           | Frequency of posting on social    | 0.033           |
+| Health limits moderate activities | 0.040           | Individual income level scale     | 0.041           | Own property                      | 0.032           |
+| Frequency of posting on social    | 0.037           | Smoker                            | 0.023           | Local authority property          | 0.024           |
+| Individual income level scale     | 0.034           | Frequency of posting on social    | 0.016           | Smoker                            | 0.012           |
+| Local authority property          | 0.026           | Local authority property          | 0.004           | How many days vigorous activity   | 0.010           |
+| Private renting                   | 0.006           | Private renting                   | 0.001           | Private renting                   | 0.003           |
