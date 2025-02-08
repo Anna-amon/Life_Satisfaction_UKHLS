@@ -2,6 +2,178 @@
 
 Drawing upon the UKHLS data set, this analysis revealed an overall significant decrease in life satisfaction for each age group, with those aged 60+ and 16-35 being the hardest hit. Having poor mental well-being, alongside being lonely, socially isolated and lacking in companionship are important predictors of low life satisfaction across all ages. This indicates the importance of subjective indicators in predicting life satisfaction. In terms of objective indicators, having a health condition, poor health behaviors,  and living in rented accommodation are all important predictors of low life satisfaction across age groups. Being single and having low income also predict low life satisfaction, but these mostly appear as stronger predictors for the two youngest age groups. Posting on social media regularly predicts low life satisfaction for the oldest age group, but the results are mixed for the two youngest age groups. The granular analysis of the mean absolute SHAP values indicates a potential ceiling effect of life satisfaction across age groups. For these reasons, social policy initiatives should focus on improving the well-being of those at the lower end of the life satisfaction scale. These social investments should cut across age groups, but a particular focus on both younger and older adults may be needed due to the more significant decline being seen for these age groups. A future longitudinal study considering whether or not life satisfaction has declined more substantially post-COVID-19, for individuals whose life satisfaction was already below average pre-COVID-19, may be beneficial to provide clarity. Future policies need to prioritize mental health improvement initiatives, but these initiatives may need to be holistic in their approach, considering how community resources can develop social connection, alongside improved access to healthcare, a reduction in poor access to resources due to ill health, and increased financial support for those who need it. In particular, these interventions may need to consider inequality of resources, how this has been exacerbated by COVID-19, and how people understand their position in relation to others, when attempting to improve life satisfaction for those reporting the lowest well-being scores. 
 
+## Exploratory Analysis
+
+Before undertaking analysis, the mean life satsifaction score was consider for all individuals, by age group, for each predictor variable. We can see large differences in scores dependent on outcomes in the exploratory tables below. For example, on average, those who hardly ever feel lonely have a life satsifaction average score of 5.9, compared to those who often feel lonely, having a score of 3.8. Similarly, in terms of how well an individual is managing financially, those who are 'living comfortably', have a mean score of 5.9, whilst for those who are 'finding it very difficult', have an average score of 3.1.
+
+## Exploratory Tables: Mean Life Satisfaction of Individuals in 2018 Dataset
+
+All values are presented as the mean life satisfaction score (M) and the percentage of individuals within each category for each variable (%). Values in the table correspond to the values after imputation of missing values by median for continuous variables and mode for categorical variables.
+
+### Mental Health Likert
+| Scale          | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------|-------|----|-------|----|-----|----|
+| Least distressed (0)  | 4203  | 5.8| 7072  | 5.6| 6517  | 6.0|
+| (1)            | 1555  | 5.6| 2206  | 5.5| 1792  | 5.6|
+| (2)            | 1264  | 5.3| 1560  | 5.1| 1106  | 5.4|
+| (3)            | 748   | 5.1| 1001  | 4.8| 606   | 5.1|
+| (4)            | 750   | 4.8| 957   | 4.7| 513   | 4.8|
+| (5)            | 392   | 4.7| 501   | 4.4| 306   | 4.6|
+| (6)            | 458   | 4.3| 555   | 4.1| 286   | 4.2|
+| (7)            | 274   | 4.2| 339   | 3.8| 174   | 4.1|
+| (8)            | 290   | 3.9| 302   | 3.6| 188   | 3.9|
+| (9)            | 140   | 3.5| 194   | 3.3| 92    | 3.6|
+| (10)           | 136   | 3.3| 240   | 3.0| 102   | 3.4|
+| (11)           | 85    | 3.0| 160   | 2.9| 75    | 2.8|
+| Most distressed (12)| 81    | 2.5| 136   | 2.6| 64    | 2.6|
+
+### How often feels lonely
+| Frequency        | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| Hardly ever/never| 4912  | 5.8| 9197  | 5.6| 478  | 5.9|
+| Some of the time | 4613  | 5.0| 5200  | 4.7| 3435 | 5.1|
+| Often            | 851   | 3.7| 826   | 3.3| 7908 | 3.8|
+
+### How often feels isolated from others
+| Frequency        | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| Hardly ever      | 5294  | 5.7| 9182  | 5.6| 8052 | 5.9|
+| Some of the time | 4398  | 4.9| 5312  | 4.6| 3387 | 5.0|
+| Often            | 684   | 3.7| 729   | 3.3| 382  | 3.6|
+
+### Recently felt cannot overcome difficulties
+| Frequency                  | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| Not at all                 | 2740  | 5.9| 4446  | 5.8| 4770 | 6.1|
+| No more than usual         | 6142  | 5.2| 8990  | 5.1| 6122 | 5.4|
+| Rather more than usual     | 1244  | 4.2| 1534  | 3.8| 808  | 4.0|
+| Much more than usual       | 250   | 3.2| 253   | 2.7| 121  | 2.9|
+
+### How often feels lack of companionship
+| Frequency                  | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| Hardly ever/never          | 4840  | 5.7| 8311  | 5.6| 7266 | 5.9|
+| Some of the time           | 4859  | 4.9| 6096  | 4.8| 4034 | 5.2|
+| Often                      | 677   | 4.0| 816   | 3.6| 521  | 4.0|
+
+### Own property
+| Status                     | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| No                         | 4492  | 5.0| 4129  | 4.7| 2261 | 5.2|
+| Yes                        | 5884  | 5.4| 11094 | 5.3| 9560 | 5.6|
+
+### Private rent
+| Status                     | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| No                         | 8447  | 5.3| 13701 | 5.2| 11271 | 5.6|
+| Yes                        | 1929  | 5.1| 1522  | 4.9| 550   | 5.2|
+
+### Council flat rent
+| Status                     | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| No                         | 8060  | 5.3| 12754 | 5.2| 10184 | 5.6|
+| Yes                        | 2316  | 5.0| 2469  | 4.6| 1637  | 5.1|
+
+### Relationship Status
+| Status                     | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| Not single                 | 6877  | 5.4| 11676 | 5.3| 7699  | 5.6|
+| Single                     | 3499  | 5.2| 3547  | 4.7| 4122  | 5.4|
+
+### How well managing financially
+| Status                     | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| Living comfortably         | 1990  | 5.8| 3292  | 5.7| 4701  | 5.9|
+| Doing alright              | 5554  | 5.4| 6863  | 5.4| 4961  | 5.5|
+| Just about getting by      | 1973  | 4.8| 3559  | 4.7| 1734  | 4.9|
+| Finding it quite difficult | 746   | 4.1| 1308  | 4.0| 374   | 4.2|
+| Finding it very difficult  | 113   | 3.7| 201   | 3.2| 51    | 3.1|
+
+### Long standing physical or mental disability
+| Status                     | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| Yes                        | 1765  | 4.6| 4437  | 4.6| 5515  | 5.3|
+| No                         | 8611  | 5.4| 10786 | 5.4| 6306  | 5.8|
+
+### Physical health limits moderate activities
+| Frequency        | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| Yes a lot        | 186   | 4.4| 715   | 3.6| 1596 | 4.6|
+| Limited a little | 1449  | 4.8| 3035  | 4.7| 3861 | 5.4|
+| No not at all    | 8741  | 5.3| 11473 | 5.4| 6364 | 5.9|
+
+### Physical health limits amount of work
+| Frequency        | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| All of the time  | 92    | 3.8| 310   | 3.1| 558  | 4.6|
+| Most of the time | 424   | 4.2| 955   | 3.9| 1398 | 4.8|
+| Some of the time | 1006  | 4.5| 1919  | 4.6| 2430 | 5.4|
+| A little of the time| 3218| 5.1| 4905  | 5.1| 3760 | 5.7|
+| None of the time | 5636  | 5.5| 7134  | 5.6| 3675 | 6.0|
+
+### Smoker
+| Status           | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| Yes              | 1516  | 4.8| 2245  | 4.7| 1094 | 5.2|
+| No               | 8860  | 5.3| 12978 | 5.2| 10727| 5.6|
+
+### Self reported health
+| Status           | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| Excellent        | 1455  | 6.0| 1208  | 5.9| 477  | 6.3|
+| Very good        | 4761  | 5.5| 5739  | 5.6| 3402 | 6.0|
+| Good             | 2946  | 4.9| 5083  | 5.1| 4006 | 5.7|
+| Fair             | 4761  | 4.2| 2464  | 4.4| 2953 | 5.1|
+| Poor             | 165   | 3.2| 729   | 3.2| 923  | 4.0|
+
+### Days vigorous activity last week
+| Frequency        | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|------------------|-------|----|-------|----|-----|----|
+| No days          | 4367  | 5.1| 6807  | 4.9| 7475 | 5.4|
+| One day          | 1024  | 5.2| 1318  | 5.2| 830  | 5.7|
+| Two days         | 2024  | 5.3| 2965  | 5.3| 1578 | 5.7|
+| Three days       | 777   | 5.4| 951   | 5.3| 435  | 5.8|
+| Four days        | 1057  | 5.4| 1688  | 5.4| 897  | 5.8|
+| Five days        | 522   | 5.4| 653   | 5.3| 214  | 5.6|
+| Six days         | 356   | 5.5| 509   | 5.4| 229  | 5.8|
+| Seven days       | 251   | 5.3| 332   | 5.4| 163  | 5.8|
+
+### Frequency of posting on social
+| Frequency                  | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| Every day                  | 1150  | 4.9| 1687  | 4.9| 765  | 5.2|
+| Several times a week       | 923   | 5.1| 1635  | 4.9| 910  | 5.2|
+| Several times a month      | 1166  | 5.1| 1770  | 5.0| 836  | 5.3|
+| Once a month               | 661   | 5.2| 923   | 5.1| 421  | 5.4|
+| Less than once a month     | 1172  | 5.1| 1951  | 5.0| 1188 | 5.3|
+| Never                      | 877   | 5.0| 2595  | 5.0| 4164 | 5.4|
+
+### Individual income level scale
+| Income Range               | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| £0 - £10,000               | 2045  | 4.9| 1960  | 4.8| 1665 | 5.3|
+| £10,001 - £20,000          | 1986  | 5.1| 2887  | 4.9| 3135 | 5.2|
+| £20,001 - £30,000          | 1355  | 5.2| 2831  | 5.0| 1877 | 5.4|
+| £30,001 - £40,000          | 373   | 5.3| 1543  | 5.2| 858  | 5.5|
+| £40,001 - £50,000          | 127   | 5.5| 653   | 5.3| 352  | 5.6|
+| £50,001 - £60,000          | 40    | 5.3| 459   | 5.4| 241  | 5.6|
+| £60,001 - £70,000          | 14    | 5.5| 136   | 5.5| 100  | 5.6|
+| £70,001 - £100,000         | 9     | 5.6| 92    | 5.3| 56   | 5.6|
+
+### Household income level scale
+| Income Range               | 16-35 | M  | 36-59 | M  | 60+ | M  |
+|----------------------------|-------|----|-------|----|-----|----|
+| £0 - £10,000               | 798   | 4.6| 1440  | 4.5| 5732 | 5.4|
+| £10,001 - £20,000          | 747   | 4.9| 1272  | 4.9| 810  | 5.2|
+| £20,001 - £30,000          | 917   | 5.0| 1416  | 5.0| 581  | 5.2|
+| £30,001 - £40,000          | 966   | 5.1| 1522  | 5.2| 423  | 5.2|
+| £40,001 - £50,000          | 823   | 5.2| 1522  | 5.3| 273  | 5.2|
+| £50,001 - £60,000          | 625   | 5.2| 1206  | 5.4| 177  | 5.0|
+| £60,001 - £70,000          | 380   | 5.4| 870   | 5.5| 114  | 5.4|
+| £70,001 - £100,000         | 507   | 5.3| 941   | 5.3| 110  | 5.6|
+| £100,001 and above         | 186   | 5.3| 372   | 5.3| 64   | 5.5|
+
+
 ## Life Satisfaction - background
 
 Within the UK and internationally, there has been a movement away from focusing solely on the financial aspects of a country’s growth and development, to supplementing these indicators with measurements of societal well-being (Barrington-Leigh 2021). To monitor and evaluate well-being levels and outcomes, the UK Government has set up the Measuring National Well-being Programme, an initiative to ensure policy decisions are evidence-based and that changes are being tracked over time (Office for National Statistics, 2024). As life satisfaction and well-being are a key concern for countries and Governments internationally, it is not surprising that there is a vast amount of literature on the subject. Predominantly, the literature focuses on traditional statistical analysis methods to evidence correlations or cause and effect of life satisfaction and other variables. One of the most recent and relevant examples to this research is a study considering life satisfaction in UK emerging adults during the pandemic (Li and Gutman, 2024). However, in more recent years, machine learning models and techniques have been applied to predict the life satisfaction of adults in Europe. The UK Centre for Economic Performance (UKCEP) considered life satisfaction across the UK, using the British Cohort Study, and a similar study of loneliness has been completed in Scotland (Clark et al., 2022; Osawa et al., 2022). Additionally, UKCEP have completed a machine learning longitudinal study, which considers factors predicting well-being across the UK, in comparison to two other European countries (Oparina et al., 2022). 
@@ -351,3 +523,7 @@ The top objective variables are largely similar across age groups, and remain th
 | Individual income level scale     | 0.034           | Frequency of posting on social    | 0.016           | Smoker                            | 0.012           |
 | Local authority property          | 0.026           | Local authority property          | 0.004           | How many days vigorous activity   | 0.010           |
 | Private renting                   | 0.006           | Private renting                   | 0.001           | Private renting                   | 0.003           |
+
+
+
+
